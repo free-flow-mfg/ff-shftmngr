@@ -212,7 +212,7 @@
                     <option value="3rd">3rd Shift (22:00 - 06:00)</option>
                     <option value="Custom">Custom Interval</option>
                 </select>
-                <button class="tab-btn" style="background-color: #0d47a1; color: white;" onclick="window.print()">Print / Export Report</button>
+                <button class="tab-btn" style="background-color: #0d47a1; color: white;" onclick="exportReport()">Print / Export Report</button>
                 <button class="tab-btn" style="background-color: #b91c1c; color: white;" onclick="clearCurrentShift()">Clear Shift Data</button>
             </div>
 
@@ -795,6 +795,15 @@
         function updatePage() {
             saveToStorage();
             window.location.reload();
+        }
+
+        function exportReport() {
+            const dateEl = document.getElementById("tx-date");
+            const dateStr = dateEl && dateEl.value ? dateEl.value : "";
+            const originalTitle = document.title;
+            document.title = "FF_" + currentShift + (dateStr ? "_" + dateStr : "");
+            window.print();
+            document.title = originalTitle;
         }
 
         function clearCurrentShift() {
